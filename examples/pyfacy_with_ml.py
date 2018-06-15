@@ -1,5 +1,5 @@
-import pyfacy
-from pyfacy import face_recog
+from pyfacy import face_recog,utils
+
 
 
 #Create the object for Class
@@ -16,15 +16,19 @@ mdl.train('Dataset/',alg='LOG_REG_MUL')
 # Save your model with model.pkl
 mdl.save_model()
 #Load you Image
-img = utils.load_image('<image url>')
+img = utils.load_image('6.jpg')
 #Predict your image
-mdl.predict(img)
+prediction = mdl.predict(img)
+print(prediction)
 #Predict from File
-mdl.predict_from_file('sleep1025.jpg')
-
+prediction = mdl.predict_from_file('6.jpg')
+print(prediction)
 
 # Load model and Predict
 mdl.load_model('model.pkl')
-mdl.predict(img)
+img = utils.load_image('6.jpg')
+prediction = mdl.predict(img)
+print(prediction)
 #Predict from File
-mdl.predict_from_file('sleep1025.jpg')
+prediction = mdl.predict_from_file('6.jpg')
+print(prediction)
