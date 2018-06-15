@@ -57,11 +57,14 @@ class Face_Recog_Algorithm():
 
 	def predict(self,img):
 		# print(len(img_to_encodings(img)))
-		encodings = img_to_encodings(img)[0]
-		face_name = self.model.predict([encodings])[0]
-		prob = self.model.predict_proba([encodings])[0]
-		print(prob)
-		print("{} with prob {}".format(self.unique_names[face_name],prob[np.argmax(prob)]*100))
+		prediction = []
+		encodings = img_to_encodings(img)
+		face_name = self.model.predict(encodings)
+		prob = self.model.predict_proba(encodings)
+		for name,pb in zip(face_name, prob):
+			prediction.append((self.unique_names[name],round(pb[name]*100,3)))
+		return prediction
+		# print("{} with prob {}".format(self.unique_names[face_name],prob[np.argmax(prob)]*100))
 	def predict_from_file(self,img_src):
 		img = misc.imread(img_src)
-		self.predict(img)
+		return self.predict(img)

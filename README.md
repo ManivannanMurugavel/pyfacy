@@ -1,5 +1,39 @@
 # This Package used for Face Recognition with Machine Algorithm
 
+## Installing Steps for requirements python package
+### Installing dlib on Ubuntu
+The following instructions were gathered on Ubuntu 16.04 but should work on newer versions of Ubuntu as well.
+
+To get started, let’s install our required dependencies:
+
+```
+sudo apt-get update
+sudo apt-get install build-essential cmake
+sudo apt-get install libopenblas-dev liblapack-dev 
+sudo apt-get install libx11-dev libgtk-3-dev
+sudo apt-get install python python-dev python-pip
+sudo apt-get install python3 python3-dev python3-pip
+```
+after
+```
+pip install dlib
+```
+### Installing pyfacy models on Ubuntu
+
+```
+pip install pyfacy_dlib_models
+```
+### Installing imutils on Ubuntu
+```
+pip install imutils
+```
+### Installing numpy, scipy and sklearn
+```
+pip install numpy
+pip install scipy
+pip install scikit-learn
+```
+
 ## It's implemented with face encodings
 
 ## Examples:
