@@ -15,6 +15,7 @@ encodings = [known_image_1_encodings,known_image_2_encodings]
 test_image = utils.load_image('./images/11.jpg')
 test_image_encodings = utils.img_to_encodings(test_image)[0]
 
+face_distances = utils.face_distance(encodings, test_image_encodings)
 
 #Distance Between Known images and Test Image
 for known_image_enc in encodings:

@@ -143,6 +143,8 @@ def selecting_alg_model(alg,records,un_cnt):
 		print("[INFO] Please select correct Algorithm Name")
 
 def face_distance(known_face_encodings, unknown_face_encodings):
+	if isinstance(known_face_encodings, list):
+		return np.linalg.norm(known_face_encodings - unknown_face_encodings,axis=1)
 	return np.linalg.norm(known_face_encodings - unknown_face_encodings)
 
 def compare_faces(known_face_src,unknown_face_src,diff=0.5):
