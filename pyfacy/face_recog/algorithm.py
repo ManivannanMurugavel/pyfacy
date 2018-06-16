@@ -61,7 +61,7 @@ class Face_Recog_Algorithm():
 		encodings = img_to_encodings(img)
 		if len(encodings) <= 0:
 			print("[INFO] Face is not identified.")
-			exit()
+			return 0
 		face_name = self.model.predict(encodings)
 		prob = self.model.predict_proba(encodings)
 		for name,pb in zip(face_name, prob):

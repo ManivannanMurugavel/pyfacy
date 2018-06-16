@@ -1,7 +1,6 @@
 from pyfacy import face_recog,utils
 
 
-
 #Create the object for Class
 mdl = face_recog.Face_Recog_Algorithm()
 
