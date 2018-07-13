@@ -15,10 +15,10 @@ requirements = [
 
 setuptools.setup(
     name="pyfacy",
-    version="0.0.6",
+    version="1.0.1",
     author="Manivannan",
     author_email="manivannanmca2012@gmail.com",
-    description="Face Recognition with Machine Learning",
+    description="Face Recognition with Machine Learning and Face Clustering",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ManivannanMurugavel/pyfacy",
@@ -27,7 +27,7 @@ setuptools.setup(
     ],
     package_dir={'pyfacy': 'pyfacy'},
     package_data={
-        'pyfacy': ['face_recog/*.py']
+        'pyfacy': ['face_recog/*.py','face_clust/*.py']
     },
     install_requires=requirements,
     license="MIT license",
