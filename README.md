@@ -33,6 +33,10 @@ pip install numpy
 pip install scipy
 pip install scikit-learn
 ```
+### Installing pyfacy
+```
+pip install pyfacy
+```
 
 ## It's implemented with face encodings
 
