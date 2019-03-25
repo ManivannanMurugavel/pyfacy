@@ -4,10 +4,12 @@ import numpy as np
 from imutils import paths
 import os
 import random
+import shutil
 from pyfacy_dlib_models import dlib_face_recognition,shape_predictor_5
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.cluster import DBSCAN
 
 pose_predictor_5_point_url = shape_predictor_5()
 
@@ -31,7 +33,7 @@ def dlib_rect_to_css(rect):
 def css_to_dlib_rect(css):
 	#Convert a tuple in (top, right, bottom, left) order to a dlib `rect` object
 	return dlib.rectangle(css[3], css[0], css[1], css[2])
-	
+
 
 
 def detect_faces_locations_from_dlib(img,number_of_times_to_upsample=1, model="cpu"):
@@ -79,7 +81,7 @@ def detect_faces(img,lib='dlib'):
 def detect_face_landmarks(face_image,face_locations=None, lib="dlib", model="large"):
 	if face_locations is None:
 		face_locations = detect_faces(face_image,lib)
-	
+
 	# pose_predictor = pose_predictor_68_point
 
 	if model == "small":
@@ -121,6 +123,36 @@ def load_images_to_encodings(face_paths):
 	labels = [unique_names.index(name) for name in y]
 	return (np.array(X),np.array(labels),unique_names,tot_len)
 
+def load_images_to_clust_encodings(face_paths):
+	imagePaths = sorted(list(paths.list_images(face_paths)))
+	random.seed(42)
+	random.shuffle(imagePaths)
+	tot_len = len(imagePaths)
+	clust_encodings = []
+	image_paths = []
+	for idx,imagePath in enumerate(imagePaths):
+		if imagePath.endswith('.jpg'):
+			print("{} / {}".format(idx+1,tot_len))
+			face = img_to_encodings(misc.imread(imagePath))
+			if len(face) == 1:
+				clust_encodings.append(face[0])
+				image_paths.append(imagePath)
+			else:
+				print("[INFO] This {} image did't have face \nor have more then one face".format(imagePath))
+		else:
+			print("[INFO] This Package only support .jpg files")
+	print("[INFO] Total of Images Readed= {} ".format(len(image_paths)))
+	return (np.array(clust_encodings),np.array(image_paths))
+
+def save_faces(labels,face_paths,save_to_location='./'):
+	unique_labels = list(set(labels))
+	for idx,label in enumerate(labels):
+		face_num = unique_labels.index(label)
+		save_path = os.path.join(save_to_location,'face_{}'.format(face_num+1))
+		if not os.path.isdir(save_path):
+			os.mkdir(save_path)
+		shutil.copy(face_paths[idx], save_path)
+
 def selecting_alg_model(alg,records,un_cnt):
 	alg = alg.upper()
 	if un_cnt < 2:
@@ -141,6 +173,9 @@ def selecting_alg_model(alg,records,un_cnt):
 		return LinearDiscriminantAnalysis()
 	else:
 		print("[INFO] Please select correct Algorithm Name")
+
+def selecting_clust_alg_model():
+	return DBSCAN(metric="euclidean", n_jobs=-1,min_samples=2)
 
 def face_distance(known_face_encodings, unknown_face_encodings):
 	if isinstance(known_face_encodings, list):
