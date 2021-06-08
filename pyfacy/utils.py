@@ -1,5 +1,5 @@
 import dlib
-from scipy import misc
+import imageio
 import numpy as np
 from imutils import paths
 import os
@@ -23,7 +23,7 @@ pose_predictor_5_point = dlib.shape_predictor(pose_predictor_5_point_url)
 face_encoder = dlib.face_recognition_model_v1(face_encoder_url)
 
 def load_image(image_src):
-	img = misc.imread(image_src)
+	img = imageio.imread.imread(image_src)
 	return img
 
 def dlib_rect_to_css(rect):
@@ -111,7 +111,7 @@ def load_images_to_encodings(face_paths):
 	for idx,imagePath in enumerate(imagePaths):
 		if imagePath.endswith('.jpg'):
 			print("{} / {}".format(idx+1,tot_len))
-			face = img_to_encodings(misc.imread(imagePath))
+			face = img_to_encodings(imageio.imread(imagePath))
 			if len(face) == 1:
 				X.append(face[0])
 				y.append(imagePath.split(os.path.sep)[-2])
@@ -133,7 +133,7 @@ def load_images_to_clust_encodings(face_paths):
 	for idx,imagePath in enumerate(imagePaths):
 		if imagePath.endswith('.jpg'):
 			print("{} / {}".format(idx+1,tot_len))
-			face = img_to_encodings(misc.imread(imagePath))
+			face = img_to_encodings(imageio.imread(imagePath))
 			if len(face) == 1:
 				clust_encodings.append(face[0])
 				image_paths.append(imagePath)
@@ -183,8 +183,8 @@ def face_distance(known_face_encodings, unknown_face_encodings):
 	return np.linalg.norm(known_face_encodings - unknown_face_encodings)
 
 def compare_faces(known_face_src,unknown_face_src,diff=0.5):
-	known_face_encodings = img_to_encodings(misc.imread(known_face_src))[0]
-	unknown_face_encodings = img_to_encodings(misc.imread(unknown_face_src))[0]
+	known_face_encodings = img_to_encodings(imageio.imread(known_face_src))[0]
+	unknown_face_encodings = img_to_encodings(imageio.imread(unknown_face_src))[0]
 	prob = face_distance(known_face_encodings, unknown_face_encodings)
 	if prob <= diff:
 		return (True,prob)
