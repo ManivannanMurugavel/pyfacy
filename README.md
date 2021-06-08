@@ -16,26 +16,27 @@ sudo apt-get install python3 python3-dev python3-pip
 ```
 after
 ```
-pip install dlib
+pip3 install dlib
 ```
 ### Installing pyfacy models on Ubuntu
 
 ```
-pip install pyfacy_dlib_models
+pip3 install pyfacy_dlib_models
 ```
 ### Installing imutils on Ubuntu
 ```
-pip install imutils
+pip3 install imutils
+pip3 install imageio
 ```
 ### Installing numpy, scipy and sklearn
 ```
-pip install numpy
-pip install scipy
-pip install scikit-learn
+pip3 install numpy
+pip3 install scipy
+pip3 install scikit-learn
 ```
 ### Installing pyfacy
 ```
-pip install pyfacy
+pip3 install pyfacy
 ```
 
 ## It's implemented with face encodings
